@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这块等于dao接口的实现 namespace必须和接口的类路径一样 -->
+<mapper namespace="com.yotcap.dao.TestMapper">
+
+    <!--public Test queryByUserId(Integer id);-->
+    <select id="queryByUserId" resultType="com.yotcap.pojo.Test">
+        select * from Test where id=#{id};
+    </select>
+
+</mapper>
