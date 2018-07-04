@@ -9,4 +9,10 @@
         select * from users where id = #{id}
     </select>
 
+    <!--User getUserByUsername(String username);-->
+    <select id="getUserByUsername" resultType="com.yotcap.pojo.User">
+        select * from users where username = #{username}
+
+    </select>
+
 </mapper>
