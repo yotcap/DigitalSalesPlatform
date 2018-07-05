@@ -37,6 +37,10 @@ public class Result<T> {
         return new Result<T>(data);
     }
 
+    public static <T> Result<T> success(CodeMsg codeMsg){
+        return new Result<>(codeMsg);
+    }
+
     public static <T> Result<T> error(CodeMsg codeMsg){
         return new Result<>(codeMsg);
     }

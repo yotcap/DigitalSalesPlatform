@@ -11,6 +11,7 @@ import com.yotcap.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -65,6 +66,30 @@ public class UserController {
         }
 //        System.out.println(loginVo);
         return Result.success(user);
+    }
+
+    /**
+     * 退出登录
+     * @param session
+     * @return
+     */
+    @RequestMapping("/logout.do")
+    @ResponseBody
+    public Result<String> logout(HttpSession session){
+        return userService.logout(session);
+    }
+
+
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
+    @RequestMapping("/register.do")
+    @ResponseBody
+    public Result<User> register(@ModelAttribute("user") User user){
+
+        return userService.register(user);
     }
 
 }

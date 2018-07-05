@@ -11,4 +11,8 @@ public interface UserService {
     public User getUserById(Integer id);
 
     Result<User> login(LoginVo loginVo, HttpSession session);
+
+    Result<String> logout(HttpSession session);
+
+    Result<User> register(User user);
 }

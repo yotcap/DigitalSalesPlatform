@@ -1,5 +1,6 @@
 package com.yotcap.service.impl;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.yotcap.dao.UserMapper;
 import com.yotcap.pojo.User;
 import com.yotcap.result.CodeMsg;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -48,4 +50,46 @@ public class UserServiceImpl implements UserService {
 
         return Result.success(user);
     }
+
+    @Override
+    public Result<String> logout(HttpSession session) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+
+        if (user==null){
+            return Result.error(CodeMsg.NOTLOGIN);
+        }
+
+        session.removeAttribute(Const.CURRENT_USER);
+
+        return Result.success(CodeMsg.LOGOUTSUCCESS);
+    }
+
+    @Override
+    public Result<User> register(User user) {
+
+        User dbUser = userMapper.getUserByUsername(user.getUsername());
+        if (dbUser!=null){
+
+            return Result.error(CodeMsg.USERNAMEEXTIS);
+        }
+
+        if (Objects.equals("",user.getPassword())){
+            return Result.error(CodeMsg.POSSCOULDNULL);
+        }
+
+        String salt = UUID.randomUUID().toString().substring(0,7);
+        user.setPassword(MD5Util.formToDb(user.getPassword(),salt));
+        user.setSalt(salt);
+        int result = userMapper.addUser(user);
+
+        if (result>0){
+            user.setSalt("");
+            user.setPassword("");
+            return Result.success(user);
+        }
+
+        return Result.error(CodeMsg.REGISTERERROR);
+    }
+
+
 }
