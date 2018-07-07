@@ -3,6 +3,7 @@ package com.yotcap.result;
 public class CodeMsg {
 
 
+
     private int code;
     private String msg;
 
@@ -15,7 +16,8 @@ public class CodeMsg {
     public static final CodeMsg REGISTERERROR = new CodeMsg(205,"注册失败");
     public static final CodeMsg USERNAMEEXTIS = new CodeMsg(206,"用户名已存在");
     public static final CodeMsg POSSCOULDNULL = new CodeMsg(207,"密码不能为空");
-
+    public static final CodeMsg MSGSENDERROR = new CodeMsg(208,"短信发送失败");
+    public static final CodeMsg MSGERROR = new CodeMsg(208,"验证码错误");
 
 
     public CodeMsg(int code, String msg) {

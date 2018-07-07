@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset=utf-8>
+</head>
 <body>
-<form method="post" action="/user/register.do">
+<h1>注册</h1>
+<form method="post" action="/DigitalSalesPlatform/user/register.do">
 
-    <input name="username" type="text">
-    <input name="password" type="text">
-    <input name="email" type="text">
-    <input name="phone" type="text">
-<input type="submit" value="提交">
+    用户名<input name="username" type="text">
+    密码：<input name="password" type="text">
+    email：<input name="email" type="text">
+    验证码：<input name="verCode" type="text">
+    <input type="submit" value="提交">
+</form>
+<br>
+<br>
+<h1>获取验证码</h1>
+<form method="post" action="/DigitalSalesPlatform/user/verification.do">
+
+    手机号码：<input name="mobile" type="text">
+    <input type="submit" value="提交">
 </form>
 </body>
 </html>

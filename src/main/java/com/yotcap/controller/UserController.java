@@ -1,13 +1,18 @@
 package com.yotcap.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yotcap.dao.UserMapper;
 import com.yotcap.pojo.User;
 import com.yotcap.result.CodeMsg;
 import com.yotcap.result.Const;
 import com.yotcap.result.Result;
 import com.yotcap.service.UserService;
+import com.yotcap.util.SendMessage;
 import com.yotcap.vo.LoginVo;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/user")
@@ -87,9 +93,38 @@ public class UserController {
      */
     @RequestMapping("/register.do")
     @ResponseBody
-    public Result<User> register(@ModelAttribute("user") User user){
+    public Result<User> register(@ModelAttribute("user") User user,String verCode,HttpSession session){
+
+        System.out.println(verCode);
+        String msgCode = (String) session.getAttribute(Const.VERCODE);
+
+        System.out.println(msgCode);
+        if (!Objects.equals(msgCode,verCode)){
+//            验证失败
+            return Result.error(CodeMsg.MSGERROR);
+        }
 
         return userService.register(user);
+    }
+
+    @RequestMapping("/verification.do")
+    @ResponseBody
+    public Result<String> verification(String mobile,HttpSession session){
+        try {
+            HttpEntity httpEntity = SendMessage.sendMsg(mobile);
+            String response= EntityUtils.toString(httpEntity,"utf-8");
+//            String code= JSON.parseObject(response).getString("code");
+            JSONObject jsonObject = JSON.parseObject(response);
+            if (jsonObject.get("code").toString().equals("200")){
+                System.out.println(jsonObject.get("obj").toString());
+                session.setAttribute(Const.VERCODE,jsonObject.get("obj").toString());
+            }
+            return Result.success(jsonObject.get("obj").toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error(CodeMsg.MSGSENDERROR);
+        }
+
     }
 
 }
