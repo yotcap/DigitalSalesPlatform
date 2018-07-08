@@ -5,21 +5,25 @@
 </head>
 <body>
 <h1>注册</h1>
-<form method="post" action="/DigitalSalesPlatform/user/register.do">
-
+<form method="post" action="/DigitalSalesPlatform/user/register.do" enctype="multipart/form-data">
+<!--<form method="post" action="user/register.do" enctype="multipart/form-data">-->
     用户名<input name="username" type="text">
     密码：<input name="password" type="text">
     email：<input name="email" type="text">
     验证码：<input name="verCode" type="text">
+    图片：<input name="picture" type="file">
     <input type="submit" value="提交">
 </form>
 <br>
 <br>
 <h1>获取验证码</h1>
 <form method="post" action="/DigitalSalesPlatform/user/verification.do">
-
+<!--<form method="post" action="user/verification.do">-->
     手机号码：<input name="mobile" type="text">
     <input type="submit" value="提交">
 </form>
+
+<img src="static/upImage/1.0de5539.png">
+<img src="static/upImage/123">
 </body>
 </html>

@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -93,12 +97,30 @@ public class UserController {
      */
     @RequestMapping("/register.do")
     @ResponseBody
-    public Result<User> register(@ModelAttribute("user") User user,String verCode,HttpSession session){
+    public Result<User> register(@ModelAttribute("user") User user,
+                                 String verCode,
+                                 MultipartFile picture,
+                                 HttpSession session){
 
-        System.out.println(verCode);
+
+
+        if (picture!=null){
+
+            String pathval = session.getServletContext().getRealPath("/static/upImage");
+            String newFileName = UUID.randomUUID().toString();
+            File newFile = new File(pathval+"/"+newFileName);
+            try {
+                picture.transferTo(newFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            user.setImage("/static/upImage/"+newFileName);
+
+        }
+
+
         String msgCode = (String) session.getAttribute(Const.VERCODE);
 
-        System.out.println(msgCode);
         if (!Objects.equals(msgCode,verCode)){
 //            验证失败
             return Result.error(CodeMsg.MSGERROR);

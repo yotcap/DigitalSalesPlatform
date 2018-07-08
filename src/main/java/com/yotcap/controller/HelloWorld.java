@@ -21,6 +21,7 @@ public class HelloWorld {
     @RequestMapping("/hello.do")
     @ResponseBody
     public Result<Test> helloWorld(){
+
         Test  test = testService.queryByUserId(1);
         return Result.success(test);
     }
