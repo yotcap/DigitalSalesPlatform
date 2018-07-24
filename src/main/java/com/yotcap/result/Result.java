@@ -29,8 +29,8 @@ public class Result<T> {
 
     /**
      * 成功的时候调用
-     * @param data
      * @param <T>
+     * @param data
      * @return
      */
     public static <T> Result<T> success(T data){

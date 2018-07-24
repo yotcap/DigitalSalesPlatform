@@ -104,21 +104,6 @@ public class UserController {
 
 
 
-        if (picture!=null){
-
-            String pathval = session.getServletContext().getRealPath("/static/upImage");
-            String newFileName = UUID.randomUUID().toString();
-            File newFile = new File(pathval+"/"+newFileName);
-            try {
-                picture.transferTo(newFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            user.setImage("/static/upImage/"+newFileName);
-
-        }
-
-
         String msgCode = (String) session.getAttribute(Const.VERCODE);
 
         if (!Objects.equals(msgCode,verCode)){
@@ -126,6 +111,19 @@ public class UserController {
             return Result.error(CodeMsg.MSGERROR);
         }
 
+        if (picture!=null){
+
+            String pathval = session.getServletContext().getRealPath(Const.UPLOADIMAGEPATH);
+            String newFileName = UUID.randomUUID().toString();
+            File newFile = new File(pathval+"/"+newFileName);
+            try {
+                picture.transferTo(newFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            user.setImage(Const.UPLOADIMAGEPATH+"/"+newFileName);
+
+        }
         return userService.register(user);
     }
 

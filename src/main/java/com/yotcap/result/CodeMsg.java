@@ -7,6 +7,8 @@ public class CodeMsg {
     private int code;
     private String msg;
 
+    public static final CodeMsg TESTSUCCESS = new CodeMsg(110,"测试成功");
+
 //    用户模块 200
     public static final CodeMsg LOGINERROR = new CodeMsg(200,"登录失败");
     public static final CodeMsg USERNOTFOUND = new CodeMsg(201,"用户名错误");
