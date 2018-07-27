@@ -1,7 +1,9 @@
 package com.yotcap.controller;
 
 
+import com.yotcap.exception.GlobalException;
 import com.yotcap.pojo.Test;
+import com.yotcap.result.CodeMsg;
 import com.yotcap.result.Result;
 import com.yotcap.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,24 @@ public class HelloWorld {
 
     @Value("#{appProperties['session.key.user']}")
     public String userKey;
+
+    @CrossOrigin(origins = "*", maxAge = 60)
+    @RequestMapping("/exception.do")
+    @ResponseBody
+    public Result<String> exception() throws Exception{
+        int a = 1/0;
+        return success(userKey);
+    }
+    @CrossOrigin(origins = "*", maxAge = 60)
+    @RequestMapping("/exceptionGlobal.do")
+    @ResponseBody
+    public Result<String> exceptionGlobal(){
+        if (true) {
+            throw new GlobalException(CodeMsg.UNKNOWNERROR);
+        }
+        return success(userKey);
+    }
+
 
     @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/userKey.do")

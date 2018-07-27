@@ -8,8 +8,10 @@ public class CodeMsg {
     private String msg;
 
     public static final CodeMsg TESTSUCCESS = new CodeMsg(110,"测试成功");
+    public static final CodeMsg UNKNOWNERROR = new CodeMsg(111,"未知错误");
 
-//    用户模块 200
+
+    //    用户模块 200
     public static final CodeMsg LOGINERROR = new CodeMsg(200,"登录失败");
     public static final CodeMsg USERNOTFOUND = new CodeMsg(201,"用户名错误");
     public static final CodeMsg PASSWORDERROR = new CodeMsg(202,"密码错误");
@@ -21,6 +23,7 @@ public class CodeMsg {
     public static final CodeMsg MSGSENDERROR = new CodeMsg(208,"短信发送失败");
     public static final CodeMsg MSGERROR = new CodeMsg(208,"验证码错误");
 
+//
 
     public CodeMsg(int code, String msg) {
         this.code = code;
