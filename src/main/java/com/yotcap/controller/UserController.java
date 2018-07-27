@@ -15,10 +15,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
@@ -51,6 +48,7 @@ public class UserController {
      * @param loginVo
      * @return
      */
+    @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/login.do")
     @ResponseBody
     public Result<User> login(@ModelAttribute("loginVo") LoginVo loginVo,
@@ -65,6 +63,7 @@ public class UserController {
      * @param session
      * @return
      */
+    @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/getUser.do")
     @ResponseBody
     public Result<User> getUser(HttpSession session){
@@ -83,6 +82,7 @@ public class UserController {
      * @param session
      * @return
      */
+    @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/logout.do")
     @ResponseBody
     public Result<String> logout(HttpSession session){
@@ -95,6 +95,7 @@ public class UserController {
      * @param user
      * @return
      */
+    @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/register.do")
     @ResponseBody
     public Result<User> register(@ModelAttribute("user") User user,
@@ -127,6 +128,7 @@ public class UserController {
         return userService.register(user);
     }
 
+    @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/verification.do")
     @ResponseBody
     public Result<String> verification(String mobile,HttpSession session){
