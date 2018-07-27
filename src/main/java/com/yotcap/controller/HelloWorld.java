@@ -1,8 +1,6 @@
 package com.yotcap.controller;
 
 
-
-import com.alibaba.fastjson.JSONObject;
 import com.yotcap.pojo.Test;
 import com.yotcap.result.Result;
 import com.yotcap.service.TestService;
@@ -102,7 +100,6 @@ public class HelloWorld {
 //        request.getParameterMap()返回的是一个Map类型的值，
 //        该返回值记录着前端（如jsp页面）所提交请求中的请求参数和请求参数值的映射关系。
 //        这个返回值有个特别之处——只能读。
-
 
 
 //        response.sendredirect(url);
