@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 import static com.yotcap.result.Result.success;
@@ -58,6 +60,25 @@ public class HelloWorld {
         System.out.println(request.getRequestURI());// /req.do
         System.out.println(request.getHeader("x-requested-with"));//判断是否是异步请求
         System.out.println(request.getQueryString());//获取查询字符串。
+
+        System.out.println("||||||||||||");
+        try {
+//            http://localhost:8080/req.do
+            URI reqUri = new URI(request.getRequestURL().toString());
+            System.out.println(reqUri.getAuthority());// localhost:8080
+            System.out.println(reqUri.getPath());// /req.do
+            System.out.println(request.getQueryString());// null
+            System.out.println(reqUri.getFragment());// null
+            System.out.println(request.getHeader("x-forwarded-proto"));//null
+            //防止网站被人嵌套ServletRequest setHeader("x-frame-options","SAMEORIGIN"|...);
+            URI newUri = new URI("https", reqUri.getAuthority(), reqUri.getPath(), request.getQueryString(), reqUri.getFragment());
+            System.out.println(newUri.toString());// https://localhost:8080/req.do
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+
 //        request.getQueryString()
 //        比如客户端发送
 //        http://localhost/test.do?a=b&c=d&e=f
@@ -108,6 +129,7 @@ public class HelloWorld {
         String str =  redisTemplate.opsForValue().get("name");
         return Result.success(str);
     }
+
 
 
 
