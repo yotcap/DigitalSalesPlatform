@@ -121,6 +121,7 @@ public class HelloWorld {
         Test  test = testService.queryByUserId(1);
         return success(test);
     }
+
     @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/redis.do")
     @ResponseBody
