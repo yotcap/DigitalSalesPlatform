@@ -1,10 +1,13 @@
 package com.yotcap.controller;
 
 
+import com.yotcap.dao.LogMapper;
 import com.yotcap.exception.GlobalException;
+import com.yotcap.pojo.Log;
 import com.yotcap.pojo.Test;
 import com.yotcap.result.CodeMsg;
 import com.yotcap.result.Result;
+import com.yotcap.service.LogService;
 import com.yotcap.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -147,6 +150,22 @@ public class HelloWorld {
         String str =  redisTemplate.opsForValue().get("name");
         return Result.success(str);
     }
+
+
+    @Autowired
+    private LogService logService;
+
+    @CrossOrigin(origins = "*", maxAge = 60)
+    @RequestMapping("/log.do")
+    @ResponseBody
+    public Result<Integer> log(){
+        Log log = new Log();
+        log.setAccountName("kaibing");
+        System.out.println(log);
+        int i = logService.addLog(log);
+        return Result.success(i);
+    }
+
 
 
 

@@ -19,6 +19,11 @@
             <mvc:exclude-mapping path="/user/login.do" />
             <bean class="com.yotcap.interceptor.LoginInterceptor" />
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.yotcap.interceptor.OperateLogInterceptor" />
+        </mvc:interceptor>
     </mvc:interceptors>
     <mvc:annotation-driven>
         <!--配置fastJson-->

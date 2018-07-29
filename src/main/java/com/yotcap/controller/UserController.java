@@ -3,6 +3,7 @@ package com.yotcap.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.yotcap.annotation.OperationalLog;
 import com.yotcap.dao.UserMapper;
 import com.yotcap.pojo.User;
 import com.yotcap.result.CodeMsg;
@@ -48,6 +49,7 @@ public class UserController {
      * @param loginVo
      * @return
      */
+    @OperationalLog("登录")
     @CrossOrigin(origins = "*", maxAge = 60)
     @RequestMapping("/login.do")
     @ResponseBody
