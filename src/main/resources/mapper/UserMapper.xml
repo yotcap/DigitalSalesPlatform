@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yotcap.dao.UserMapper">
+    <sql id="userCol">
+        username,password,salt,phone,email,image
+    </sql>
+
+    <!--public User getUserById(Integer id);-->
+    <select id="getUserById" resultType="com.yotcap.pojo.User">
+        select * from users where id = #{id}
+    </select>
+
+    <!--User getUserByUsername(String username);-->
+    <select id="getUserByUsername" resultType="com.yotcap.pojo.User">
+        select * from users where username = #{username}
+    </select>
+
+    <!--int addUser(User user);-->
+    <insert id="addUser" parameterType="com.yotcap.pojo.User">
+        insert  into
+        users(username,password,salt,phone,email,image)
+        values
+        (#{user.username},#{user.password},#{user.salt},
+        #{user.phone},#{user.email},#{user.image})
+    </insert>
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yotcap.dao.LogMapper">
+
+
+    <!--int addLog(@Param("log") Log log);-->
+    <insert id="addLog" parameterType="com.yotcap.pojo.Log">
+        insert  into
+        log(account_name,url,operation,`desc`,result)
+        values
+        (#{log.accountName},#{log.url},#{log.operation},
+        #{log.desc},#{log.result})
+    </insert>
+
+</mapper>
